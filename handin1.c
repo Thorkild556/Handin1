@@ -2,7 +2,7 @@
 
 int main(void){
     
-    struct stack *stack_alloc(void);
+    struct stack;
 
 
 
