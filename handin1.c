@@ -15,7 +15,6 @@ stack *stack_alloc(){
     stack *p = malloc(sizeof(stack));
     
     // hej Benjamin, p->member er det samme som (*p).member når p er en pointer til en struct.
-
     p->capacity = 2;
     p->arr = malloc(sizeof(int)*2);
     p->height = 0;
