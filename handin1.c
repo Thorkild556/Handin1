@@ -62,12 +62,23 @@ int stack_push(struct stack *s, int x){
     }
 }
 
+int stack_pop(struct stack *s, int *dst){
+    *dst = s->arr[s->height-1];
+    s->height -= 1;
+    return *dst;
+}
+
+
 int main(void){
 
     stack *stack1 = stack_alloc();
 
     stack_push(stack1, 1);
     stack_push(stack1, 3);
+    int val;
+    stack_pop(stack1, &val);
+
+    stack_push(stack1, 2);
 
     stack_print(stack1);
 
