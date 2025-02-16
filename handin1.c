@@ -82,7 +82,7 @@ int stack_pop(struct stack *s, int *dst){
     if (s->height > 0) {
         *dst = s->arr[s->height-1];
         s->height -= 1;
-        //har basicly bare kopieret det jeg havde oven over.
+        //har basicly bare kopieret det jeg havde oven over. Der er vidst lidt for meget nesting her.
         if (s->height == s->capacity/4) {
             //allokér den halve
             int *copy =  malloc(sizeof(int)*s->capacity/2);
