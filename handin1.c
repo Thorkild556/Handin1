@@ -51,10 +51,24 @@ void stack_print(stack *s){
 }
 
 int stack_push(struct stack *s, int x){
+    if (s->height == s->capacity) {
+        //allokér dobbelt kapacitet.
+        int *copy =  malloc(sizeof(int)*s->capacity*2);
+        //kopier hvert element fra den gamle stack over i den nye (copy)
+        for (int i = 0;  i < s->capacity; i++){
+            copy[i] = s->arr[i];
+        }
+        //frigør pladsen fra den gamle
+        free(s->arr);
+        s->arr = copy;
+        s->capacity *= 2;
+    }
+    
+    //return -1 if no more memory
     if (s->height >= s->capacity){
         return -1;
     }
-
+    //add the item on top
     else{
     s->arr[s->height] = x;
     s->height ++;
@@ -62,10 +76,11 @@ int stack_push(struct stack *s, int x){
     }
 }
 
+//Mangler at returnere -1 hvis der er en fejl
 int stack_pop(struct stack *s, int *dst){
     *dst = s->arr[s->height-1];
     s->height -= 1;
-    return *dst;
+    return 0;
 }
 
 
@@ -79,6 +94,9 @@ int main(void){
     stack_pop(stack1, &val);
 
     stack_push(stack1, 2);
+    stack_push(stack1, 2);
+    stack_push(stack1, 3);
+    stack_push(stack1, 3);
 
     stack_print(stack1);
 
