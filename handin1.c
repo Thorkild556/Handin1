@@ -43,7 +43,7 @@ void stack_print(stack *s){
         }
         else
         {
-            printf(" . ");
+            printf(" .");
         }
         
         
@@ -78,9 +78,23 @@ int stack_push(struct stack *s, int x){
 
 //Mangler at returnere -1 hvis der er en fejl, og hvis arrayet kun er 1/4 fyldt, skal hukommelsen halveres.
 int stack_pop(struct stack *s, int *dst){
+
     if (s->height > 0) {
         *dst = s->arr[s->height-1];
         s->height -= 1;
+        //har basicly bare kopieret det jeg havde oven over.
+        if (s->height == s->capacity/4) {
+            //allokér den halve
+            int *copy =  malloc(sizeof(int)*s->capacity/2);
+            //kopier hvert element fra den gamle stack over i den nye (copy)
+            for (int i = 0;  i < s->capacity/4; i++){
+                copy[i] = s->arr[i];
+            }
+            //frigør pladsen fra den gamle
+            free(s->arr);
+            s->arr = copy;
+            s->capacity /= 2;
+        }
         return 0;
     }
     else {
@@ -99,9 +113,12 @@ int main(void){
     stack_pop(stack1, &val);
 
     stack_push(stack1, 2);
-    stack_push(stack1, 2);
+    stack_push(stack1, 8);
     stack_push(stack1, 3);
     stack_push(stack1, 3);
+
+    stack_pop(stack1, &val);
+    stack_pop(stack1, &val);
 
     stack_print(stack1);
 
