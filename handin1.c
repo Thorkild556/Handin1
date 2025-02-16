@@ -39,7 +39,7 @@ void stack_print(stack *s){
     for (int i = 0;  i < s->capacity; i++){
         if (i < s->height)
         {
-            printf("array = %d ", s->arr[i]);
+            printf("%d ", s->arr[i]);
         }
         else
         {
@@ -50,9 +50,24 @@ void stack_print(stack *s){
     }
 }
 
+int stack_push(struct stack *s, int x){
+    if (s->height >= s->capacity){
+        return -1;
+    }
+
+    else{
+    s->arr[s->height] = x;
+    s->height ++;
+    return 0;
+    }
+}
+
 int main(void){
 
     stack *stack1 = stack_alloc();
+
+    stack_push(stack1, 1);
+    stack_push(stack1, 3);
 
     stack_print(stack1);
 
