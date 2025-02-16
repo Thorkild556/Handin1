@@ -78,9 +78,14 @@ int stack_push(struct stack *s, int x){
 
 //Mangler at returnere -1 hvis der er en fejl, og hvis arrayet kun er 1/4 fyldt, skal hukommelsen halveres.
 int stack_pop(struct stack *s, int *dst){
-    *dst = s->arr[s->height-1];
-    s->height -= 1;
-    return 0;
+    if (s->height > 0) {
+        *dst = s->arr[s->height-1];
+        s->height -= 1;
+        return 0;
+    }
+    else {
+        return -1;
+    }
 }
 
 
